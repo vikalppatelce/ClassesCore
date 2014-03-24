@@ -2,6 +2,10 @@
 
 import java.util.Locale;
 
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.FeedbackManager;
+import net.hockeyapp.android.Tracking;
+import net.hockeyapp.android.UpdateManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -70,6 +74,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		R.string.drawer_open, /* "open drawer" description for accessibility */
 		R.string.drawer_close /* "close drawer" description for accessibility */
 		) {
+			@Override
 			public void onDrawerClosed(View view) {
 				getSupportActionBar().setTitle(mTitle);
 				supportInvalidateOptionsMenu();
@@ -77,6 +82,7 @@ public class MainActivity extends SherlockFragmentActivity {
 				// onPrepareOptionsMenu()
 			}
 
+			@Override
 			public void onDrawerOpened(View drawerView) {
 				getSupportActionBar().setTitle(mDrawerTitle);
 				supportInvalidateOptionsMenu();
@@ -89,6 +95,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		if (savedInstanceState == null) {
 			selectItem(0);
 		}
+		
+		checkForUpdates();
 	}
 
 	@Override
@@ -105,6 +113,34 @@ public class MainActivity extends SherlockFragmentActivity {
 		FlurryAgent.onEndSession(this);
 	}
 	
+	public void onResume() {
+	    super.onResume();
+	    Tracking.startUsage(this);
+	    checkForCrashes();
+	    checkForUpdates();
+	  }
+
+	  private void checkForCrashes() {
+	    CrashManager.register(this, "918f4ee59ebdb8bb23b429e0eb9e897d");
+	  }
+
+	  private void checkForUpdates() {
+	    // Remove this for store builds!
+	    UpdateManager.register(this, "918f4ee59ebdb8bb23b429e0eb9e897d");
+	  }
+	  
+	  @Override
+	  protected void onPause() {
+	    // Further statements
+	    // ...
+	    Tracking.stopUsage(this);                 
+	    super.onPause();
+	  }
+	  public void showFeedbackActivity() {
+		  FeedbackManager.register(this, "918f4ee59ebdb8bb23b429e0eb9e897d", null);
+		  FeedbackManager.showFeedbackActivity(this);
+		}
+	  
 	public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 		  private final Context context;
 		  private final String[] values;
@@ -202,6 +238,7 @@ public class MainActivity extends SherlockFragmentActivity {
             break;
         case 7:
             fragment = new SendFeedbackFragment();
+            showFeedbackActivity();
             break;
         default:
         	fragment = new HomeFragment();
@@ -223,6 +260,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		getSupportActionBar().setTitle(mTitle);
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 
@@ -231,6 +269,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
