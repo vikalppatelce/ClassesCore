@@ -22,8 +22,10 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.flurry.android.FlurryAgent;
 
 import demo.vicshady.classes.R;
+import demo.vicshady.classes.app.AppConstants;
 
 public class MainActivity extends SherlockFragmentActivity {
 	private DrawerLayout mDrawerLayout;
@@ -89,6 +91,19 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 
+	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		FlurryAgent.onStartSession(this, AppConstants.FLURRY_API_KEY);
+	}
+	 
+	@Override
+	protected void onStop()
+	{
+		super.onStop();		
+		FlurryAgent.onEndSession(this);
+	}
 	
 	public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 		  private final Context context;

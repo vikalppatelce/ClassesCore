@@ -51,6 +51,8 @@ public class AppConstants {
 	public static final String EXTENSION = ".png";
 	public static final String GCM_SENDER_ID = "494660405194";
 	
+	public static final String FLURRY_API_KEY = "Y5BQCVGT87TN84GQ5FSR";
+	
 	
 	public static final boolean DEBUG = false;
 	
