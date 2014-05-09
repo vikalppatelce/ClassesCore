@@ -1,108 +1,138 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:fillViewport="true">
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fafafa">
+        android:background="#fafafa" >
 
         <FrameLayout
-            android:layout_gravity="top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="88dp">
+            android:layout_gravity="top"
+            android:layout_marginTop="88dp" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
                 android:id="@+id/icon_image1"
-                android:src="@drawable/intro1"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/intro1" />
 
             <ImageView
+                android:id="@+id/icon_image2"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:id="@+id/icon_image2"/>
-
+                android:layout_gravity="center" />
         </FrameLayout>
 
         <android.support.v4.view.ViewPager
+            android:id="@+id/intro_view_pager"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/intro_view_pager"/>
+            android:layout_height="fill_parent" />
 
-        <TextView android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/start_messaging_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="336dp"
             android:background="@drawable/regbtn_states"
-            android:text="Start Classes"
-            android:layout_gravity="center_horizontal"
-            android:textSize="18dp"
-            android:textColor="#ffffff"
             android:gravity="center"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/start_messaging_button"/>
+            android:text="Start Classes"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:visibility="invisible"
+             />
 
         <LinearLayout
+            android:id="@+id/bottom_pages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bottom_pages"
-            android:orientation="horizontal"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="26dp">
+            android:layout_marginBottom="70dp"
+            android:orientation="horizontal" >
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"/>
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
 
             <FrameLayout
                 android:layout_width="5dp"
                 android:layout_height="5dp"
-                android:background="#bbbbbb"
-                android:layout_marginLeft="7dp"/>
-
+                android:layout_marginLeft="7dp"
+                android:background="#bbbbbb" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/previous"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/regbtn_states"
+                android:layout_weight="0.5"
+                android:onClick="onPrevious"
+                android:text="Previous"
+                android:textColor="@android:color/white"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="fill_parent"
+                android:background="@drawable/regbtn_states"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_weight="0.5"
+                android:onClick="onNext"
+                android:text="Next"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </FrameLayout>
 
 </ScrollView>

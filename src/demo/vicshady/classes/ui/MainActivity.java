@@ -8,11 +8,14 @@ import net.hockeyapp.android.Tracking;
 import net.hockeyapp.android.UpdateManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +42,15 @@ public class MainActivity extends SherlockFragmentActivity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mPlanetTitles;
+	static Typeface stylefont;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		stylefont = Typeface.createFromAsset(getAssets(), AppConstants.fontStyle);
+		
 		mTitle = mDrawerTitle = getTitle();
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -159,6 +165,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		    TextView textView = (TextView) rowView.findViewById(R.id.text1);
 		    ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1);
 		    textView.setText(values[position]);
+		    textView.setTypeface(stylefont);
 		    // Change the icon for Windows and iPhone
 		    String s = values[position];
 			switch (position) {
@@ -257,9 +264,26 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
-		getSupportActionBar().setTitle(mTitle);
+//		getSupportActionBar().setTitle(mTitle);
+		fontActionBar(mTitle.toString());
 	}
 
+	public void fontActionBar(String str)
+	{
+		try {
+			int titleId;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+				titleId = getResources().getIdentifier("action_bar_title","id", "android");
+			} else {
+				titleId = R.id.abs__action_bar_title;
+			}
+			TextView yourTextView = (TextView) findViewById(titleId);
+			yourTextView.setText(str);
+			yourTextView.setTypeface(stylefont);
+		} catch (Exception e) {
+			Log.e("ActionBar Style", e.toString());
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import demo.vicshady.classes.R;
@@ -36,6 +37,8 @@ public class IntroActivity extends FragmentActivity {
     private int[] icons;
     private int[] titles;
     private int[] messages;
+    
+    Button next,previous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,10 @@ public class IntroActivity extends FragmentActivity {
         topImage1 = (ImageView)findViewById(R.id.icon_image1);
         topImage2 = (ImageView)findViewById(R.id.icon_image2);
         bottomPages = (ViewGroup)findViewById(R.id.bottom_pages);
+        
+        next = (Button) findViewById(R.id.next);
+		previous = (Button) findViewById(R.id.previous);
+		
         topImage2.setVisibility(View.GONE);
         viewPager.setAdapter(new IntroAdapter());
         viewPager.setPageMargin(0);
@@ -203,6 +210,34 @@ public class IntroActivity extends FragmentActivity {
 //        getSupportActionBar().hide();
     }
 
+    public void onNext(View v) {
+		if (viewPager.getCurrentItem() == 5) {
+			viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+			next.setText("Finish");
+		} else if (viewPager.getCurrentItem() == 6
+				&& next.getText().toString().equalsIgnoreCase("finish")) {
+			Intent i = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(i);
+			finish();
+		} else {
+			viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+			next.setText("Next");
+			if (viewPager.getCurrentItem() > 0)
+				previous.setVisibility(View.VISIBLE);
+			else
+				previous.setVisibility(View.INVISIBLE);
+		}
+	}
+	
+	public void onPrevious(View v) {
+		viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+		next.setText("Next");
+		if (viewPager.getCurrentItem() == 0)
+			previous.setVisibility(View.INVISIBLE);
+	}
+    
+    
+    
     @Override
     protected void onResume() {
         super.onResume();
